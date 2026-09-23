@@ -1,95 +1,198 @@
 <!DOCTYPE html>
 <!-- Created by Erion Nezha — © 2026 All rights reserved -->
-<html lang="en">
+<html lang="sq">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>❓ Quiz game &mdash; Erion Nezha</title>
-<meta name="description" content="Kuiz kafshësh në Python — 3 pyetje, 3 tentativa për secilën, pikë dhe rezultat final. Tërësisht në shqip.">
+<title>🐻 Kuiz i Kafshëve — Erion Nezha</title>
+<meta name="description" content="Kuiz kafshësh në shqip — 3 pyetje, 3 tentativa për secilën, pikë dhe rezultat final. Krijuar nga Erion Nezha.">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--gold:#ffc857;--gold-dim:#b98a1e;--bg:#0a0a10;--card:#12121a;--line:#23232f;--txt:#e8e6df;--mut:#9a9789;--blue:#7ee0ff}
-body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;min-height:100vh}
-.hero{text-align:center;padding:72px 20px 40px;background:radial-gradient(ellipse at 50% -50%,#2a2111 0%,transparent 60%)}
-.badge{display:inline-block;border:1px solid var(--gold-dim);color:var(--gold);border-radius:999px;padding:6px 18px;font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:22px}
-.hero h1{font-size:clamp(30px,5.5vw,56px);letter-spacing:2px;background:linear-gradient(180deg,#ffe9b0,var(--gold) 60%,#8a6410);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:800}
-.hero p{color:var(--mut);max-width:660px;margin:18px auto 0;line-height:1.7;font-size:16px}
-.stack{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}
-.stack span{border:1px solid var(--line);background:var(--card);color:var(--blue);border-radius:8px;padding:6px 14px;font-size:13px;font-family:Consolas,monospace}
-.stats{display:flex;gap:14px;justify-content:center;margin-top:26px;flex-wrap:wrap}
-.stat{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:12px 26px}
-.stat b{color:var(--gold);font-size:24px;display:block}
-.stat span{color:var(--mut);font-size:12px;letter-spacing:1px;text-transform:uppercase}
-.wrap{max-width:960px;margin:0 auto;padding:0 20px 60px}
-.codecard{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-.codecard header{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--line)}
-.codecard header h3{color:var(--gold);font-size:18px}
-.codecard header h3 small{color:var(--mut);font-weight:400}
-.codebox{overflow:auto;padding:20px 22px;max-height:70vh}
-pre{font-family:'Cascadia Code',Consolas,monospace;font-size:13px;line-height:1.65;counter-reset:ln}
-pre .row{display:block;white-space:pre}
-pre .row::before{counter-increment:ln;content:counter(ln);display:inline-block;width:44px;color:#4a4a58;text-align:right;margin-right:16px;user-select:none}
-.k{color:#ff7edb}.s{color:#ffc857}.c{color:#6a6a78;font-style:italic}.n{color:#7ee0ff}
-.codecard footer{display:flex;gap:10px;padding:16px 22px;border-top:1px solid var(--line)}
-.btn{flex:1;text-align:center;border-radius:10px;padding:10px;font-size:14px;cursor:pointer;text-decoration:none;transition:.2s;border:1px solid var(--gold-dim)}
-.btn.view{background:var(--gold);color:#111;font-weight:700;border-color:var(--gold)}
-.btn.gh{background:transparent;color:var(--gold)}
-.howto{max-width:960px;margin:0 auto 50px;padding:0 20px}
-.howto .box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px}
-.howto h2{color:var(--gold);margin-bottom:14px;font-size:20px}
-.howto ol{margin-left:20px;color:var(--mut);line-height:2;font-size:15px;list-style:none}
-.howto code{background:#0a0a10;border:1px solid var(--line);border-radius:6px;padding:2px 8px;color:var(--blue);font-family:Consolas,monospace;font-size:13px}
-footer.page{text-align:center;padding:34px 20px;border-top:1px solid var(--line);color:var(--mut);font-size:13px}
-footer.page a{color:var(--gold);text-decoration:none}
+:root{--gold:#ffc857;--gold-dim:#b98a1e;--bg:#0a0a10;--card:#12121a;--line:#23232f;--txt:#e8e6df;--mut:#9a9789;--blue:#7ee0ff;--green:#7dffa8;--red:#ff8a8a}
+body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+.hero{text-align:center;padding:54px 20px 26px;background:radial-gradient(ellipse at 50% -50%,#2a2111 0%,transparent 60%)}
+.badge{display:inline-block;border:1px solid var(--gold-dim);color:var(--gold);border-radius:999px;padding:6px 18px;font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px}
+.hero h1{font-size:clamp(30px,5.5vw,54px);letter-spacing:2px;background:linear-gradient(180deg,#ffe9b0,var(--gold) 60%,#8a6410);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:800}
+.hero p{color:var(--mut);max-width:620px;margin:14px auto 0;line-height:1.7;font-size:16px}
+main{flex:1;display:flex;justify-content:center;padding:10px 20px 50px}
+.game{width:100%;max-width:640px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:36px 34px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px;gap:12px;flex-wrap:wrap}
+.hud .pill{border:1px solid var(--line);border-radius:999px;padding:8px 18px;font-size:14px;color:var(--mut)}
+.hud .pill b{color:var(--gold);font-size:16px}
+.dots{display:flex;gap:10px}
+.dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--gold-dim);background:transparent;transition:.25s}
+.dot.done{background:var(--gold);border-color:var(--gold)}
+.dot.current{border-color:var(--gold);box-shadow:0 0 10px rgba(255,200,87,.7)}
+.question{font-size:clamp(20px,3.4vw,27px);font-weight:700;line-height:1.5;margin-bottom:8px}
+.attempts{color:var(--mut);font-size:14px;margin-bottom:22px}
+.attempts b{color:var(--blue)}
+.feedback{min-height:56px;font-size:17px;font-weight:600;margin-bottom:18px;line-height:1.5}
+.feedback.ok{color:var(--green)}
+.feedback.bad{color:var(--red)}
+.feedback.info{color:var(--gold)}
+.inputrow{display:flex;gap:12px;margin-bottom:14px}
+#answer{flex:1;background:#0a0a10;border:1px solid var(--line);border-radius:12px;color:var(--txt);font-size:17px;padding:14px 18px;outline:none;transition:.2s}
+#answer:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px rgba(255,200,87,.12)}
+#answer:disabled{opacity:.45}
+.btn{border-radius:12px;padding:14px 26px;font-size:16px;font-weight:700;cursor:pointer;border:1px solid var(--gold-dim);transition:.2s}
+.btn.gold{background:var(--gold);color:#111;border-color:var(--gold)}
+.btn.gold:hover{filter:brightness(1.1)}
+.btn.gold:disabled{opacity:.45;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--gold);width:100%;margin-top:4px}
+.btn.ghost:hover{background:rgba(255,200,87,.08)}
+.result{text-align:center;padding:10px 0}
+.result .big{font-size:clamp(26px,4.5vw,38px);font-weight:800;color:var(--gold);margin-bottom:12px}
+.result .score{font-size:64px;font-weight:800;background:linear-gradient(180deg,#ffe9b0,var(--gold) 60%,#8a6410);-webkit-background-clip:text;background-clip:text;color:transparent;margin:8px 0 18px}
+.result p{color:var(--mut);line-height:1.7;margin-bottom:22px}
+.hidden{display:none!important}
+footer.page{text-align:center;padding:30px 20px;border-top:1px solid var(--line);color:var(--mut);font-size:13px}
+footer.page b{color:var(--gold)}
+@media(max-width:520px){.game{padding:26px 20px}.inputrow{flex-direction:column}}
 </style>
 </head>
 <body>
 <div class="hero">
-<div class="badge">Python &bull; Console Game</div>
-<h1>KUIZ I KAFSHËVE</h1>
-<p>Kuiz kafshësh në Python — 3 pyetje, 3 tentativa për secilën, pikë dhe rezultat final. Tërësisht në shqip.</p>
-<div class="stack"><span>Python</span></div>
-<div class="stats"><div class="stat"><b>27</b><span>Lines of code</span></div><div class="stat"><b>3</b><span>Questions</span></div><div class="stat"><b>100%</b><span>Python</span></div></div>
+  <div class="badge">Kuiz &bull; Shqip</div>
+  <h1>KUIZ I KAFSHËVE</h1>
+  <p>3 pyetje për kafshët — ke 3 tentativa për secilën. Përgjigju saktë dhe mblidh pikë!</p>
 </div>
-<div class="wrap"><div class="codecard">
-<header><h3 id="ctitle"></h3></header>
-<div class="codebox"><pre id="ccode"></pre></div>
-<footer>
-<button class="btn view" id="copyBtn" onclick="copyCode()">📋 Copy code</button>
-<a class="btn gh" id="ghBtn" target="_blank" rel="noopener">View on GitHub ↗</a>
-</footer>
-</div></div>
-<div class="howto"><div class="box">
-<h2>▶ Si ekzekutohet / How to run</h2>
-<ol><li>Ekzekuto: <code>python Quiz_game.py</code></li></ol>
-</div></div>
-<footer class="page">Copyright &copy; 2026 <a href="https://github.com/ErionNezha">Erion Nezha</a>. All rights reserved.</footer>
+<main>
+  <div class="game">
+    <div class="hud">
+      <div class="pill">Pikët: <b id="score">0</b>/3</div>
+      <div class="dots" id="dots">
+        <span class="dot" data-i="0"></span>
+        <span class="dot" data-i="1"></span>
+        <span class="dot" data-i="2"></span>
+      </div>
+      <div class="pill">Pyetja <b id="qnum">1</b>/3</div>
+    </div>
+
+    <div id="play">
+      <div class="question" id="question"></div>
+      <div class="attempts">Tentativa <b id="att">1</b>/3</div>
+      <div class="feedback" id="feedback"></div>
+      <div class="inputrow">
+        <input type="text" id="answer" placeholder="Shkruaj përgjigjen këtu…" autocomplete="off" autofocus>
+        <button class="btn gold" id="sendBtn">Përgjigju</button>
+      </div>
+      <button class="btn ghost" id="restartBtn">🔄 Fillo nga e para</button>
+    </div>
+
+    <div id="result" class="result hidden">
+      <div class="big">🏁 Kuizi mbaroi!</div>
+      <div class="score" id="finalScore">0/3</div>
+      <p id="finalMsg"></p>
+      <button class="btn gold" id="againBtn" style="width:100%">🔄 Luaj përsëri</button>
+    </div>
+  </div>
+</main>
+<footer class="page">Krijuar me ❤️ nga <b>Erion Nezha</b> — © 2026 All rights reserved</footer>
+
 <script>
-const P = [{"n": 1, "file": "Quiz_game.py", "title": "Quiz_game.py", "desc": "Kuiz kafsh\u00ebsh n\u00eb Python \u2014 3 pyetje, 3 tentativa p\u00ebr secil\u00ebn, pik\u00eb dhe rezultat final. T\u00ebr\u00ebsisht n\u00eb shqip.", "cat": "Source", "lines": 27, "code": "# Kuiz i Kafshave \u2014 nga Erion Nezha (c) 2026. Te gjitha te drejtat te rezervuara.\n\ndef kontrollo_pergjigjen(pergjigja, sakta):\n    global piket\n    vazhdon = True\n    tentativa = 0\n    while vazhdon and tentativa < 3:\n        if pergjigja.lower() == sakta.lower():\n            print(\"Pergjigje e sakt\u00eb! \u2705\")\n            piket = piket + 1\n            vazhdon = False\n        else:\n            if tentativa < 2:\n                pergjigja = input(\"Gabim, provo p\u00ebrs\u00ebri: \")\n            tentativa = tentativa + 1\n    if tentativa == 3:\n        print(\"P\u00ebrgjigja e sakt\u00eb \u00ebsht\u00eb:\", sakta)\n\npiket = 0\nprint(\"Gjej Kafsh\u00ebn \ud83d\udc3e\")\np1 = input(\"Cili ari jeton n\u00eb Polin e Veriut? \")\nkontrollo_pergjigjen(p1, \"ariu polar\")\np2 = input(\"Cila \u00ebsht\u00eb kafsha m\u00eb e shpejt\u00eb e tok\u00ebs? \")\nkontrollo_pergjigjen(p2, \"gatopardi\")\np3 = input(\"Cila \u00ebsht\u00eb kafsha m\u00eb e madhe? \")\nkontrollo_pergjigjen(p3, \"balena blu\")\nprint(\"Rezultati yt \u00ebsht\u00eb: \" + str(piket) + \"/3\")\n", "blob": "https://github.com/ErionNezha/Quiz-Game/blob/main/Quiz_game.py"}];
-const p = P[0];
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function hl(code){
-  var re = new RegExp('("[^"\n]*"|\'[^\'\n]*\')|(#[^\n]*)|\\b(import|from|as|def|return|for|while|in|if|elif|else|with|class|pass|break|continue|lambda|try|except|True|False|None)\\b|\\b(\\d+\\.?\\d*)\\b', 'g');
-  return esc(code).split('\n').map(function(line){
-    var out='', last=0, m; re.lastIndex=0;
-    while((m = re.exec(line))){
-      out += line.slice(last, m.index);
-      var tok = m[0];
-      if(m[1]) out += '<span class="s">'+tok+'</span>';
-      else if(m[2]) out += '<span class="c">'+tok+'</span>';
-      else if(m[3]) out += '<span class="k">'+tok+'</span>';
-      else if(m[4]) out += '<span class="n">'+tok+'</span>';
-      last = m.index + tok.length;
-      if(tok.length === 0) re.lastIndex++;
-    }
-    out += line.slice(last);
-    return '<span class="row">'+(out||' ')+'</span>';
-  }).join('');
+"use strict";
+var QUESTIONS = [
+  { q: "Cila arushë jeton në Polin e Veriut?", a: "arusha polare", ok: ["arusha polare", "arushë polare", "polar bear"] },
+  { q: "Cila është kafsha më e shpejtë në tokë?", a: "gatopardi", ok: ["gatopardi", "cheetah"] },
+  { q: "Cila është kafsha më e madhe në botë?", a: "balena blu", ok: ["balena blu", "balenë blu", "blue whale"] }
+];
+var qi = 0, attempt = 1, score = 0;
+
+function norm(s) {
+  return s.toLowerCase()
+    .replace(/[ë]/g, "e").replace(/[ç]/g, "c")
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ").trim();
 }
-document.getElementById('ctitle').innerHTML = esc(p.title)+' <small>'+esc(p.file)+' · '+p.lines+' lines</small>';
-document.getElementById('ccode').innerHTML = hl(p.code);
-document.getElementById('ghBtn').href = p.blob;
-function copyCode(){navigator.clipboard.writeText(p.code).then(function(){var b=document.getElementById('copyBtn');b.textContent='✅ Copied!';setTimeout(function(){b.textContent='📋 Copy code';},1500);});}
+
+var $ = function(id){ return document.getElementById(id); };
+var questionEl = $("question"), attEl = $("att"), fbEl = $("feedback"),
+    ansEl = $("answer"), sendBtn = $("sendBtn"), scoreEl = $("score"),
+    qnumEl = $("qnum"), dotsEl = $("dots").children;
+
+function renderDots() {
+  for (var i = 0; i < dotsEl.length; i++) {
+    dotsEl[i].className = "dot" + (i < qi ? " done" : (i === qi ? " current" : ""));
+  }
+}
+
+function showQuestion() {
+  questionEl.textContent = QUESTIONS[qi].q;
+  qnumEl.textContent = qi + 1;
+  attEl.textContent = attempt;
+  fbEl.textContent = "";
+  fbEl.className = "feedback";
+  ansEl.value = "";
+  ansEl.disabled = false;
+  sendBtn.disabled = false;
+  renderDots();
+  ansEl.focus();
+}
+
+function nextQuestion() {
+  qi++;
+  if (qi >= QUESTIONS.length) return showResult();
+  attempt = 1;
+  showQuestion();
+}
+
+function setFeedback(msg, cls) {
+  fbEl.textContent = msg;
+  fbEl.className = "feedback " + cls;
+}
+
+function checkAnswer() {
+  var guess = ansEl.value;
+  if (!guess.trim()) { setFeedback("Shkruaj një përgjigje fillimisht.", "info"); return; }
+  var good = QUESTIONS[qi].ok.some(function(v){ return norm(guess) === norm(v); });
+  if (good) {
+    score++;
+    scoreEl.textContent = score;
+    setFeedback("✅ Përgjigje e saktë!", "ok");
+    ansEl.disabled = true;
+    sendBtn.disabled = true;
+    setTimeout(nextQuestion, 1100);
+  } else {
+    if (attempt < 3) {
+      attempt++;
+      attEl.textContent = attempt;
+      setFeedback("❌ Përgjigje e gabuar, provo përsëri.", "bad");
+      ansEl.select();
+    } else {
+      setFeedback("❌ Përgjigjja e saktë është: " + QUESTIONS[qi].a, "bad");
+      ansEl.disabled = true;
+      sendBtn.disabled = true;
+      setTimeout(nextQuestion, 1800);
+    }
+  }
+}
+
+function showResult() {
+  $("play").classList.add("hidden");
+  $("result").classList.remove("hidden");
+  $("finalScore").textContent = score + "/3";
+  var msg = score === 3 ? "🎉 Perfekt! I njeh kafshët si xhepi yt!"
+    : score === 2 ? "👏 Shumë mirë! Edhe pak dhe e perfeksionon."
+    : score === 1 ? "🙂 Jo keq — provo edhe një herë!"
+    : "😅 S'ka problem — provoje përsëri dhe mëso përgjigjet!";
+  $("finalMsg").textContent = "Rezultati yt: " + score + "/3. " + msg;
+  renderDots();
+}
+
+function restart() {
+  qi = 0; attempt = 1; score = 0;
+  scoreEl.textContent = "0";
+  $("play").classList.remove("hidden");
+  $("result").classList.add("hidden");
+  showQuestion();
+}
+
+sendBtn.addEventListener("click", checkAnswer);
+ansEl.addEventListener("keydown", function(e){ if (e.key === "Enter") checkAnswer(); });
+$("restartBtn").addEventListener("click", restart);
+$("againBtn").addEventListener("click", restart);
+
+showQuestion();
 </script>
 </body>
 </html>
