@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!-- Created by Erion Nezha — © 2026 All rights reserved -->
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐻 Kuiz i Kafshëve — Erion Nezha</title>
+<meta name="description" content="Kuiz kafshësh në shqip — 3 pyetje, 3 tentativa për secilën, pikë dhe rezultat final. Krijuar nga Erion Nezha.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#ffc857;--gold-dim:#b98a1e;--bg:#0a0a10;--card:#12121a;--line:#23232f;--txt:#e8e6df;--mut:#9a9789;--blue:#7ee0ff;--green:#7dffa8;--red:#ff8a8a}
+body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+.hero{text-align:center;padding:54px 20px 26px;background:radial-gradient(ellipse at 50% -50%,#2a2111 0%,transparent 60%)}
+.badge{display:inline-block;border:1px solid var(--gold-dim);color:var(--gold);border-radius:999px;padding:6px 18px;font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px}
+.hero h1{font-size:clamp(30px,5.5vw,54px);letter-spacing:2px;background:linear-gradient(180deg,#ffe9b0,var(--gold) 60%,#8a6410);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:800}
+.hero p{color:var(--mut);max-width:620px;margin:14px auto 0;line-height:1.7;font-size:16px}
+main{flex:1;display:flex;justify-content:center;padding:10px 20px 50px}
+.game{width:100%;max-width:640px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:36px 34px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px;gap:12px;flex-wrap:wrap}
+.hud .pill{border:1px solid var(--line);border-radius:999px;padding:8px 18px;font-size:14px;color:var(--mut)}
+.hud .pill b{color:var(--gold);font-size:16px}
+.dots{display:flex;gap:10px}
+.dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--gold-dim);background:transparent;transition:.25s}
+.dot.done{background:var(--gold);border-color:var(--gold)}
+.dot.current{border-color:var(--gold);box-shadow:0 0 10px rgba(255,200,87,.7)}
+.question{font-size:clamp(20px,3.4vw,27px);font-weight:700;line-height:1.5;margin-bottom:8px}
+.attempts{color:var(--mut);font-size:14px;margin-bottom:22px}
+.attempts b{color:var(--blue)}
+.feedback{min-height:56px;font-size:17px;font-weight:600;margin-bottom:18px;line-height:1.5}
+.feedback.ok{color:var(--green)}
+.feedback.bad{color:var(--red)}
+.feedback.info{color:var(--gold)}
+.inputrow{display:flex;gap:12px;margin-bottom:14px}
+#answer{flex:1;background:#0a0a10;border:1px solid var(--line);border-radius:12px;color:var(--txt);font-size:17px;padding:14px 18px;outline:none;transition:.2s}
+#answer:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px rgba(255,200,87,.12)}
+#answer:disabled{opacity:.45}
+.btn{border-radius:12px;padding:14px 26px;font-size:16px;font-weight:700;cursor:pointer;border:1px solid var(--gold-dim);transition:.2s}
+.btn.gold{background:var(--gold);color:#111;border-color:var(--gold)}
+.btn.gold:hover{filter:brightness(1.1)}
+.btn.gold:disabled{opacity:.45;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--gold);width:100%;margin-top:4px}
+.btn.ghost:hover{background:rgba(255,200,87,.08)}
+.result{text-align:center;padding:10px 0}
+.result .big{font-size:clamp(26px,4.5vw,38px);font-weight:800;color:var(--gold);margin-bottom:12px}
+.result .score{font-size:64px;font-weight:800;background:linear-gradient(180deg,#ffe9b0,var(--gold) 60%,#8a6410);-webkit-background-clip:text;background-clip:text;color:transparent;margin:8px 0 18px}
+.result p{color:var(--mut);line-height:1.7;margin-bottom:22px}
+.hidden{display:none!important}
+footer.page{text-align:center;padding:30px 20px;border-top:1px solid var(--line);color:var(--mut);font-size:13px}
+footer.page b{color:var(--gold)}
+@media(max-width:520px){.game{padding:26px 20px}.inputrow{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="badge">Kuiz &bull; Shqip</div>
+  <h1>KUIZ I KAFSHËVE</h1>
+  <p>3 pyetje për kafshët — ke 3 tentativa për secilën. Përgjigju saktë dhe mblidh pikë!</p>
+</div>
+<main>
+  <div class="game">
+    <div class="hud">
+      <div class="pill">Pikët: <b id="score">0</b>/3</div>
+      <div class="dots" id="dots">
+        <span class="dot" data-i="0"></span>
+        <span class="dot" data-i="1"></span>
+        <span class="dot" data-i="2"></span>
+      </div>
+      <div class="pill">Pyetja <b id="qnum">1</b>/3</div>
+    </div>
+
+    <div id="play">
+      <div class="question" id="question"></div>
+      <div class="attempts">Tentativa <b id="att">1</b>/3</div>
+      <div class="feedback" id="feedback"></div>
+      <div class="inputrow">
+        <input type="text" id="answer" placeholder="Shkruaj përgjigjen këtu…" autocomplete="off" autofocus>
+        <button class="btn gold" id="sendBtn">Përgjigju</button>
+      </div>
+      <button class="btn ghost" id="restartBtn">🔄 Fillo nga e para</button>
+    </div>
+
+    <div id="result" class="result hidden">
+      <div class="big">🏁 Kuizi mbaroi!</div>
+      <div class="score" id="finalScore">0/3</div>
+      <p id="finalMsg"></p>
+      <button class="btn gold" id="againBtn" style="width:100%">🔄 Luaj përsëri</button>
+    </div>
+  </div>
+</main>
+<footer class="page">Krijuar me ❤️ nga <b>Erion Nezha</b> — © 2026 All rights reserved</footer>
+
+<script>
+"use strict";
+var QUESTIONS = [
+  { q: "Cila arushë jeton në Polin e Veriut?", a: "arusha polare", ok: ["arusha polare", "arushë polare", "polar bear"] },
+  { q: "Cila është kafsha më e shpejtë në tokë?", a: "gatopardi", ok: ["gatopardi", "cheetah"] },
+  { q: "Cila është kafsha më e madhe në botë?", a: "balena blu", ok: ["balena blu", "balenë blu", "blue whale"] }
+];
+var qi = 0, attempt = 1, score = 0;
+
+function norm(s) {
+  return s.toLowerCase()
+    .replace(/[ë]/g, "e").replace(/[ç]/g, "c")
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ").trim();
+}
+
+var $ = function(id){ return document.getElementById(id); };
+var questionEl = $("question"), attEl = $("att"), fbEl = $("feedback"),
+    ansEl = $("answer"), sendBtn = $("sendBtn"), scoreEl = $("score"),
+    qnumEl = $("qnum"), dotsEl = $("dots").children;
+
+function renderDots() {
+  for (var i = 0; i < dotsEl.length; i++) {
+    dotsEl[i].className = "dot" + (i < qi ? " done" : (i === qi ? " current" : ""));
+  }
+}
+
+function showQuestion() {
+  questionEl.textContent = QUESTIONS[qi].q;
+  qnumEl.textContent = qi + 1;
+  attEl.textContent = attempt;
+  fbEl.textContent = "";
+  fbEl.className = "feedback";
+  ansEl.value = "";
+  ansEl.disabled = false;
+  sendBtn.disabled = false;
+  renderDots();
+  ansEl.focus();
+}
+
+function nextQuestion() {
+  qi++;
+  if (qi >= QUESTIONS.length) return showResult();
+  attempt = 1;
+  showQuestion();
+}
+
+function setFeedback(msg, cls) {
+  fbEl.textContent = msg;
+  fbEl.className = "feedback " + cls;
+}
+
+function checkAnswer() {
+  var guess = ansEl.value;
+  if (!guess.trim()) { setFeedback("Shkruaj një përgjigje fillimisht.", "info"); return; }
+  var good = QUESTIONS[qi].ok.some(function(v){ return norm(guess) === norm(v); });
+  if (good) {
+    score++;
+    scoreEl.textContent = score;
+    setFeedback("✅ Përgjigje e saktë!", "ok");
+    ansEl.disabled = true;
+    sendBtn.disabled = true;
+    setTimeout(nextQuestion, 1100);
+  } else {
+    if (attempt < 3) {
+      attempt++;
+      attEl.textContent = attempt;
+      setFeedback("❌ Përgjigje e gabuar, provo përsëri.", "bad");
+      ansEl.select();
+    } else {
+      setFeedback("❌ Përgjigjja e saktë është: " + QUESTIONS[qi].a, "bad");
+      ansEl.disabled = true;
+      sendBtn.disabled = true;
+      setTimeout(nextQuestion, 1800);
+    }
+  }
+}
+
+function showResult() {
+  $("play").classList.add("hidden");
+  $("result").classList.remove("hidden");
+  $("finalScore").textContent = score + "/3";
+  var msg = score === 3 ? "🎉 Perfekt! I njeh kafshët si xhepi yt!"
+    : score === 2 ? "👏 Shumë mirë! Edhe pak dhe e perfeksionon."
+    : score === 1 ? "🙂 Jo keq — provo edhe një herë!"
+    : "😅 S'ka problem — provoje përsëri dhe mëso përgjigjet!";
+  $("finalMsg").textContent = "Rezultati yt: " + score + "/3. " + msg;
+  renderDots();
+}
+
+function restart() {
+  qi = 0; attempt = 1; score = 0;
+  scoreEl.textContent = "0";
+  $("play").classList.remove("hidden");
+  $("result").classList.add("hidden");
+  showQuestion();
+}
+
+sendBtn.addEventListener("click", checkAnswer);
+ansEl.addEventListener("keydown", function(e){ if (e.key === "Enter") checkAnswer(); });
+$("restartBtn").addEventListener("click", restart);
+$("againBtn").addEventListener("click", restart);
+
+showQuestion();
+</script>
+</body>
+</html>
