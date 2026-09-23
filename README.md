@@ -21,3 +21,4 @@ python Quiz_game.py
 ## 📄 Licenca
 
 Copyright © 2026 Erion Nezha. Të gjitha të drejtat të rezervuara. Shiko [LICENSE](LICENSE).
+
