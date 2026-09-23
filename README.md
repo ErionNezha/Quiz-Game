@@ -1,5 +1,7 @@
 # ❓ Kuiz i Kafshëve — Quiz Game 🇦🇱
 
+Created by **Erion Nezha**
+
 > Kuiz kafshësh në Python — 3 pyetje, 3 tentativa për secilën, pikë dhe rezultat final. Tërësisht në shqip.
 
 ![Pamje nga demo](screenshot.png)
